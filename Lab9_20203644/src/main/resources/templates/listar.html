@@ -11,10 +11,12 @@
     <h3 class="text-center">TELEDRINK</h3>
 </div>
 <div class="card-body mx-3">
-<div class="row m-4" >
-    <div class="col-md-4 col-10 mb-4" th:each="coctel,iterStat : ${listaCocteles}">
+<div class="row m-3 mx-sm-5" >
+    <div class="col-md-4 col-10 mb-4" th:each="coctel : ${listaCocteles}">
         <div class="card h-100">
+            <a th:href="@{/cocteles/detalle/{id}(id=${coctel.idDrink})}">
             <img th:src="${coctel.strDrinkThumb}" class="card-img-top" alt="Imagen de [[${coctel.strDrink}]]">
+            </a>
             <div class="card-body text-center">
                 <span class="card-text">[[${coctel.strDrink}]]</span>
             </div>

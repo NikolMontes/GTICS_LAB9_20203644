@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es"      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeledrinkDetalle</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <div class="text-center">
+        <h3 class="text-center mb-3" th:text="${detalleDrinks.strDrink}"> </h3>
+    </div>
+
+    <div class="text-center">
+        <img th:src="${detalleDrinks.strDrinkThumb}"  class="img-fluid" style="max-width: 30%; max-height: 30%;" alt="Imagen de [[${detalleCoctel.strDrink}]]">
+        <div class="mt-2 bold">
+            <span th:text="${detalleDrinks.strCategory}"></span> -
+            <span th:text="${detalleDrinks.strAlcoholic}"></span> -
+            <span th:text="${detalleDrinks.strGlass}"></span>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <h5>Instructions</h5>
+            <p th:text="${detalleDrinks.strInstructions}"></p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <h5>Ingredients</h5>
+            <ul class="bold">
+                <li th:each="ingrediente : ${ingredientesConMedidas}" th:text="${ingrediente}"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
