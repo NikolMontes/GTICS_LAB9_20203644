@@ -15,6 +15,7 @@ import java.util.List;
 @Component
 public class ListaCoctel {
     private static final String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail";
+    private static final String url_detalle = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
 
     public List<Coctel> listarCoctel(){
         RestTemplate restTemplate = new RestTemplate();
@@ -24,4 +25,16 @@ public class ListaCoctel {
         ObjectMapper mapeo = new ObjectMapper();
         return response.getBody().getDrinks();
     }
+
+    public Coctel verDetalleCoctel(String id){
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Coctelesresults> response = restTemplate.getForEntity(url_detalle + id, Coctelesresults.class);
+        Coctelesresults coctelesresultsdto = response.getBody();
+        if (coctelesresultsdto != null && coctelesresultsdto.getDrinks() != null && !coctelesresultsdto.getDrinks().isEmpty()) {
+            return coctelesresultsdto.getDrinks().get(0);
+        } else {
+            return null;
+        }
+    }
+
 }

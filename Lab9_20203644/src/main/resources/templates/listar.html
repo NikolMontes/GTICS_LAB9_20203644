@@ -8,13 +8,21 @@
 </head>
 <body>
 <div class="container mt-4">
-    <h3 class="text-center">TELEDRINK</h3>
+    <h3 class="text-center" th:text="${titulo}">TELEDRINK</h3>
+    <div class="text-center mb-3">
+        <a class="btn btn-primary" href="/cocteles/listofFavorites" th:if="${titulo} == 'TELEDRINK'">
+            <span>List my favorite drinks</span>
+        </a>
+    </div>
 </div>
+
 <div class="card-body mx-3">
 <div class="row m-4" >
     <div class="col-md-4 col-10 mb-4" th:each="coctel,iterStat : ${listaCocteles}">
         <div class="card h-100">
-            <img th:src="${coctel.strDrinkThumb}" class="card-img-top" alt="Imagen de [[${coctel.strDrink}]]">
+            <a th:href="@{/cocteles/detalle/{id}(id=${coctel.idDrink})}">
+                <img th:src="${coctel.strDrinkThumb}" class="card-img-top" alt="Imagen de [[${coctel.strDrink}]]">
+            </a>
             <div class="card-body text-center">
                 <span class="card-text">[[${coctel.strDrink}]]</span>
             </div>
