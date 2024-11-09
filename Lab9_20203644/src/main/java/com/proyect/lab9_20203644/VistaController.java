@@ -2,14 +2,18 @@ package com.proyect.lab9_20203644;
 
 import com.proyect.lab9_20203644.Dao.ListaCoctel;
 import com.proyect.lab9_20203644.Entity.Coctel;
+import com.proyect.lab9_20203644.Entity.Drink;
+import com.proyect.lab9_20203644.Repository.DrinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -17,6 +21,9 @@ import java.util.List;
 public class VistaController {
     @Autowired
     ListaCoctel coctelDao;
+
+    private final DrinkRepository drinkRepository;
+    public VistaController(DrinkRepository drinkRepository) {this.drinkRepository = drinkRepository;}
 
     @GetMapping({"/listando",""})
     public String listandoProductos(Model model){
@@ -32,9 +39,18 @@ public class VistaController {
     @GetMapping("/detalle/{id}")
     public String viendoDetalle(@PathVariable String id, Model model){
         Coctel detalle = coctelDao.verDetalleCoctel(id);
-        List<String> ingredientesConMedidas = detalle.getIngredientesConMedidas();
-        model.addAttribute("detalleDrinks",detalle);
-        model.addAttribute("ingredientesConMedidas", ingredientesConMedidas);
+        if(detalle != null){
+            List<String> ingredientesConMedidas = detalle.getIngredientesConMedidas();
+            Integer iddrinkenint = Integer.parseInt(id);
+            Drink drink = drinkRepository.findById(iddrinkenint).orElse(null);
+            Boolean ifisFavorite = (drink!= null && drink.getStrisFavorite());
+            model.addAttribute("isFavorite",ifisFavorite);
+            model.addAttribute("detalleDrinks",detalle);
+            model.addAttribute("ingredientesConMedidas", ingredientesConMedidas);
+        }else{
+            model.addAttribute("isFavorite",false);
+            model.addAttribute("detalleDrinks", null);
+        }
         return "detalle";
     }
 }

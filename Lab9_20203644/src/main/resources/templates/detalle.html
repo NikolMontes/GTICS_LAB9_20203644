@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TeledrinkDetalle</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 <div class="container mt-4">
     <div class="text-center">
-        <h3 class="text-center mb-3" th:text="${detalleDrinks.strDrink}"> </h3>
+        <!--<h3 class="text-center mb-3" th:text="${detalleDrinks.strDrink}"> </h3>-->
+        <h3 th:if="${detalleDrinks != null}" th:text="${detalleDrinks.strDrink}"></h3>
+        <p th:if="${detalleDrinks == null}">Detalles no disponibles</p>
+
+    </div>
+
+    <div class="text-center mb-4 mt-3">
+        <form method="post" id="formRegistro" th:action="@{/cocteles/addtoFavorite/{id}(id=${detalleDrinks.idDrink})}" onsubmit="submitForm(event)" th:if="${!isFavorite}">
+        <button class="btn btn-outline-warning" type="submit"   style="margin-left: auto;">Add to Favorites
+            <i class="fa fa-star"></i>
+        </button>
+        </form>
+        <a class="btn btn-success " th:if="${isFavorite}"  style="margin-left: auto;" >Favorite
+            <i class="fas fa-check"></i>
+        </a>
     </div>
 
     <div class="text-center">
@@ -39,6 +55,58 @@
 </div>
 
 
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Congratulations!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                You added this drink to  favorites
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function submitForm(event) {
+        event.preventDefault(); // Previene el envío predeterminado del formulario
+
+        const form = document.getElementById('formRegistro');
+        const actionUrl = form.getAttribute('action');
+
+        // Enviar la solicitud con fetch
+        fetch(actionUrl, {
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                // Muestra el modal de confirmación si la solicitud fue exitosa
+                const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+                modal.show();
+                form.innerHTML = `
+                <a class="btn btn-success" style="margin-left: auto;">Favorite
+                    <i class="fas fa-check"></i>
+                </a>
+            `;
+            } else {
+                alert('Hubo un problema al agregar a favoritos. Inténtalo de nuevo.');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('Ocurrió un error al procesar la solicitud.');
+        });
+    }
+</script>
+
+
+<!-- Bootstrap JS and dependencies (Popper.js and Bootstrap JS) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
