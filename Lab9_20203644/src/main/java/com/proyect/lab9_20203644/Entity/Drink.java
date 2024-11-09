@@ -36,4 +36,5 @@ public class Drink {
     @Version
     private Integer version;
 
+
 }

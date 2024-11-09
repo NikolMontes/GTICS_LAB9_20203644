@@ -15,7 +15,8 @@ public class Coctel {
     private String strDrink;
     private String strDrinkThumb;
     private String idDrink;
-    //a partir de aui es para detalle de cocteles(drinks)
+
+    //a partir de aqui es para detalle de cocteles(drinks)
     private String strCategory;
     private String strAlcoholic;
     private String strGlass;
