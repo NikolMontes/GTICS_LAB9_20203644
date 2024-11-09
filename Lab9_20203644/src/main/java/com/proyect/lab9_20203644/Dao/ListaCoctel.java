@@ -26,10 +26,7 @@ public class ListaCoctel {
         ObjectMapper mapeo = new ObjectMapper();
         return response.getBody().getDrinks();
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> feature/listFavorite
     public Coctel verDetalleCoctel(String id){
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Coctelesresults> response = restTemplate.getForEntity(url_detalle + id, Coctelesresults.class);
@@ -40,8 +37,5 @@ public class ListaCoctel {
             return null;
         }
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> feature/listFavorite
 }

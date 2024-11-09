@@ -5,21 +5,15 @@ import com.proyect.lab9_20203644.Entity.Coctel;
 import com.proyect.lab9_20203644.Entity.Drink;
 import com.proyect.lab9_20203644.Repository.DrinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-=======
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
->>>>>>> feature/listFavorite
 
 import java.util.ArrayList;
 import java.util.HashMap;
